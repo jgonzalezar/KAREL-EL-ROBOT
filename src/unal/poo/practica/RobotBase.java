@@ -12,44 +12,41 @@ public class RobotBase
         public static City objetos;
         public static Robot estudiante;
         
+        public static void GiraALaDerecha(){
+            for(int j=0;j<3;j=j+1){
+            estudiante.turnLeft();
+            }
+        }
+        
 	public static void main (String[] args){
             //Declarar la creacion de la ciudad
             objetos = new City("Field.txt");
 	    objetos.showThingCounts(true);
             
+            
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Robot(objetos,0, 2, Direction.EAST,10);
+            estudiante = new Robot(objetos,0, 1, Direction.SOUTH,10);
             
-	    //Mover una interseccion en el sentido al cual este apuntando el objeto.
-            estudiante.move ();
-            
-            //Girar a la izquierda
-            estudiante.turnLeft();
-            
-            //Tomando decisiones, Si puedo tomar un Thing
+            estudiante.move();
             boolean puedeTomar = estudiante.canPickThing();
+            for(int i=0;i<2;i++){
+            if(puedeTomar==true)
+                estudiante.pickThing();
+            }
             
-            //Tomar un Thing
-            if(puedeTomar == true)
-               estudiante.pickThing();
-            
-            //Especifica el numero de Thing que tiene en robot en el bolso
+            estudiante.turnLeft();
             int numeroThings = estudiante.countThingsInBackpack();
-            
-            //Poner Thing, se debe validar que tenga things en el bolso
+            for (int i=0;i<2;i++){
+            estudiante.move();
             estudiante.putThing();
-                       
-            //Si el frente esta libre de Wall
-            estudiante.frontIsClear();
-            
-            //Invocando una funcion
-            creacionFuncion(4);
-            
-            //Toman un Thing
-            estudiante.pickThing();
-            
-            
+            }
+            estudiante.turnLeft();
+            estudiante.turnLeft();
+            estudiante.move();
+            estudiante.move();
+            estudiante.turnLeft();
+            estudiante.move();
 	}
         
         public static void creacionFuncion(int parametroEntrada){
